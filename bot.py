@@ -281,7 +281,13 @@ class AdminPanel(discord.ui.View):
         message = await channel.send(embed=build_embed(g, 0, interaction.guild), view=GiveawayView(giveaway_id))
         await db_execute("UPDATE giveaways SET message_id=? WHERE id=?", (message.id, giveaway_id))
         bot.add_view(GiveawayView(giveaway_id), message_id=message.id)
-        await interaction.response.send_message(f"Sorteio publicado em {channel.mention}!", ephemeral=True)
+        
+await interaction.response.send_message(
+    f"🎉 Sorteio publicado em {channel.mention}!\n"
+    f"🆔 ID do sorteio: `{giveaway_id}`",
+    ephemeral=True
+)
+
         self.stop()
 
 
